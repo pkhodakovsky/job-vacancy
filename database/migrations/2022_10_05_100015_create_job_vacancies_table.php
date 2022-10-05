@@ -14,6 +14,7 @@ return new class extends Migration {
     {
         Schema::create('job_vacancies', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->unsignedInteger('job_id')->index();
             $table->foreignUuid('user_id')->index()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedInteger('like')->default(0);
             $table->string('title');
