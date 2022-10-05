@@ -2,10 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class JobVacancy extends Model
 {
-    use HasFactory;
+    use SoftDeletes, Uuids;
+
+    protected $table = "job_vacancies";
+    protected $fillable = ["user_id", "like", "title", "body"];
+
+    public function User(): HasOne
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
 }
