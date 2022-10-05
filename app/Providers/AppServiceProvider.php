@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Helpers\Setting\SettingHelper;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +14,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(SettingHelper::class, function () {
+            return new SettingHelper();
+        });
     }
 
     /**
@@ -23,6 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        SettingHelper::app()->set();
     }
 }
