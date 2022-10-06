@@ -44,11 +44,6 @@ const showingNavigationDropdown = ref(false);
                             <Label :classes="'text-emerald-600 bg-emerald-200'">
                                 Coin : {{ $page.props.auth.user.coin.coin }}
                             </Label>
-<!--                            Like : { "id": "b584e569-4af9-4401-9cd3-a9ccad9c208f",-->
-<!--                            "name": "REZA", "email": "satiseven777@gmail.com", "email_verified_at": -->
-<!--                            "2022-10-06T07:14:00.000000Z", "created_at": "2022-10-06T07:13:52.000000Z", -->
-<!--                            "updated_at": "2022-10-06T07:14:00.000000Z", "deleted_at": null, "likes_count": 1,-->
-<!--                            "coin": { "user_id": "b584e569-4af9-4401-9cd3-a9ccad9c208f", "coin": 3 } }-->
                             <div class="ml-3 relative">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
@@ -93,7 +88,6 @@ const showingNavigationDropdown = ref(false);
                         </div>
                     </div>
                 </div>
-
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}"
                      class="sm:hidden">

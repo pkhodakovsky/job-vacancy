@@ -3,6 +3,10 @@
 namespace App\Providers;
 
 use App\Helpers\Setting\SettingHelper;
+use App\Models\JobVacancy;
+use App\Models\JobVacancyResponse;
+use App\Observers\JobVacancyObserver;
+use App\Observers\JobVacancyResponseObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,5 +31,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         SettingHelper::app()->set();
+        JobVacancy::observe(JobVacancyObserver::class);
+        JobVacancyResponse::observe(JobVacancyResponseObserver::class);
+
     }
 }
