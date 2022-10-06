@@ -14,13 +14,15 @@ class Setting extends Model
     protected $table = "settings";
     protected $primaryKey = self::KEY;
     public $timestamps = false;
-    protected $fillable = [
-        self::KEY,
-        self::VALUE,
-    ];
-    protected $casts = [
-        self::KEY => 'string',
-    ];
+    protected $fillable
+        = [
+            self::KEY,
+            self::VALUE,
+        ];
+    protected $casts
+        = [
+            self::KEY => 'string',
+        ];
 
 
 }

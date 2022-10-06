@@ -17,10 +17,11 @@ class JobVacancyResponse extends Model
 
     public function User(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(User::class, 'id', 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function JobVacancy(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function JobVacancy(
+    ): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(JobVacancy::class, 'id', 'job_vacancy_id');
     }

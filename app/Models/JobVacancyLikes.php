@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class JobVacancyLikes extends Model
 {
     protected $table = "job_vacancy_likes";
+    public $timestamps = false;
     protected $fillable = ["job_vacancy_id", "user_id"];
 }

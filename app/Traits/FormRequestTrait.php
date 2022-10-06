@@ -20,29 +20,29 @@ trait FormRequestTrait
      *
      * @return bool
      */
-     public function authorize()
-     {
-         return Auth::check();
-     }
+    public function authorize()
+    {
+        return Auth::check();
+    }
 
     /**
      * Send faild validation with json response
      */
-     protected function failedValidation(Validator $validator)
-     {
+    protected function failedValidation(Validator $validator)
+    {
         $error_keys = $validator->errors()->keys();
         throw new HttpResponseException(
             response()->json([
                 'success' => false,
                 'message' => 'The given data was invalid',
-                'error' => [
-                    'message' => $validator->errors()->first($error_keys[0]),
-                    'code' => 600,
+                'error'   => [
+                    'message'   => $validator->errors()->first($error_keys[0]),
+                    'code'      => 600,
                     'attribute' => $error_keys[0]
                 ]
             ], 200)
         );
-     }
+    }
 
-     /*public function withValidatior( $validator ){ }*/
+    /*public function withValidatior( $validator ){ }*/
 }

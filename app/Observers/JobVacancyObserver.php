@@ -17,6 +17,7 @@ class JobVacancyObserver
      * Handle the JobVacancy "created" event.
      *
      * @param \App\Models\JobVacancy $jobVacancy
+     *
      * @return void
      */
     public function creating(JobVacancy $jobVacancy)
@@ -25,15 +26,20 @@ class JobVacancyObserver
         $job_cost = SettingHelper::app()->get(SettingEnum::JOB_VACANCY_COST);
         if ($userCoin->coin < $job_cost) {
             throw ValidationException::withMessages([
-                trans('Your Coin Balance is :balance , Job Vacancy Costs :cost',
+                trans(
+                    'Your Coin Balance is :balance , Job Vacancy Costs :cost',
                     [
                         'balance' => $userCoin->coin,
-                        'cost' => $job_cost,
-                    ]),
+                        'cost'    => $job_cost,
+                    ]
+                ),
             ]);
         }
-        $jobCountLast24 = JobVacancy::where('user_id', auth()->id())->
-        where("created_at", ">", Carbon::now()->subDay())->get()->count();
+        $jobCountLast24 = JobVacancy::where('user_id', auth()->id())->where(
+            "created_at",
+            ">",
+            Carbon::now()->subDay()
+        )->get()->count();
         if ($jobCountLast24 > 2) {
             throw ValidationException::withMessages([
                 trans('Cannot post more than two job vacancies per 24 hours'),
@@ -51,6 +57,7 @@ class JobVacancyObserver
      * Handle the JobVacancy "updated" event.
      *
      * @param \App\Models\JobVacancy $jobVacancy
+     *
      * @return void
      */
     public function updated(JobVacancy $jobVacancy)
@@ -62,6 +69,7 @@ class JobVacancyObserver
      * Handle the JobVacancy "deleted" event.
      *
      * @param \App\Models\JobVacancy $jobVacancy
+     *
      * @return void
      */
     public function deleted(JobVacancy $jobVacancy)
@@ -73,6 +81,7 @@ class JobVacancyObserver
      * Handle the JobVacancy "restored" event.
      *
      * @param \App\Models\JobVacancy $jobVacancy
+     *
      * @return void
      */
     public function restored(JobVacancy $jobVacancy)
@@ -84,6 +93,7 @@ class JobVacancyObserver
      * Handle the JobVacancy "force deleted" event.
      *
      * @param \App\Models\JobVacancy $jobVacancy
+     *
      * @return void
      */
     public function forceDeleted(JobVacancy $jobVacancy)

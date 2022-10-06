@@ -18,8 +18,9 @@ class JobVacancyResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'body' => $this->body,
-            'jobNo' => $this->created_at,
+            'jobNo' => $this->job_no,
             'name' => $this->user->name,
+            'userId' => $this->user->id,
             'date' => $this->user->created_at,
         ];
     }

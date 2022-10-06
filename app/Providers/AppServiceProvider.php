@@ -7,6 +7,7 @@ use App\Models\JobVacancy;
 use App\Models\JobVacancyResponse;
 use App\Observers\JobVacancyObserver;
 use App\Observers\JobVacancyResponseObserver;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -18,9 +19,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(SettingHelper::class, function () {
-            return new SettingHelper();
-        });
+        if (Schema::hasTable('settings')) {
+            $this->app->singleton(SettingHelper::class, function () {
+                return new SettingHelper();
+            });
+        }
     }
 
     /**
@@ -30,9 +33,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        SettingHelper::app()->set();
+        if (Schema::hasTable('settings')) {
+            SettingHelper::app()->set();
+        }
         JobVacancy::observe(JobVacancyObserver::class);
         JobVacancyResponse::observe(JobVacancyResponseObserver::class);
-
     }
 }

@@ -1,7 +1,9 @@
 <?php
+
 namespace App\Traits;
 
 use Illuminate\Support\Str;
+
 trait Uuids
 {
     /**
@@ -15,8 +17,8 @@ trait Uuids
                 $model->{$model->getKeyName()} = Str::uuid()->toString();
             }
         });
-       
     }
+
     /**
      * Get the value indicating whether the IDs are incrementing.
      *
@@ -26,6 +28,7 @@ trait Uuids
     {
         return false;
     }
+
     /**
      * Get the auto-incrementing key type.
      *

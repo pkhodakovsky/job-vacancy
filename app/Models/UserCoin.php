@@ -9,5 +9,5 @@ class UserCoin extends Model
 {
     protected $table = "user_coins";
     protected $fillable = ["user_id", "coin"];
-    public $timestamps=false;
+    public $timestamps = false;
 }

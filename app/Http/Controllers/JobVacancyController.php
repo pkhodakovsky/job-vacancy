@@ -41,12 +41,16 @@ class JobVacancyController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(JobVacancyRequest $request)
     {
         $this->middleware(['auth', 'verified']);
-        $jobVacancy = array_merge($request->validated(), ['job_no' => 0, 'user_id' => auth()->id()]);
+        $jobVacancy = array_merge(
+            $request->validated(),
+            ['job_no' => 0, 'user_id' => auth()->id()]
+        );
         try {
             JobVacancy::create($jobVacancy);
 
@@ -56,25 +60,25 @@ class JobVacancyController extends Controller
                 'message' => $e->getMessage(),
             ], 406);
         }
-
     }
 
     /**
      * Display the specified resource.
      *
      * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         return new JobVacancyResource(JobVacancy::with(['user'])->find($id));
-
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -86,7 +90,8 @@ class JobVacancyController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -98,6 +103,7 @@ class JobVacancyController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

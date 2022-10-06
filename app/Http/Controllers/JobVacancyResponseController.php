@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\JobVacancyResponseRequest;
+use App\Http\Resources\JobVacancyResponseResource;
 use App\Models\JobVacancy;
 use App\Models\JobVacancyResponse;
 use Illuminate\Http\Request;
@@ -17,7 +18,6 @@ class JobVacancyResponseController extends Controller
      */
     public function index()
     {
-
     }
 
     /**
@@ -34,14 +34,15 @@ class JobVacancyResponseController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(JobVacancyResponseRequest $request)
     {
         try {
             JobVacancyResponse::create([
-                'body' => $request->body,
-                'user_id' => auth()->id(),
+                'body'           => $request->body,
+                'user_id'        => auth()->id(),
                 'job_vacancy_id' => $request->job_vacancy_id,
             ]);
             return response()->json(['message' => trans('Successfully done')]);
@@ -56,17 +57,21 @@ class JobVacancyResponseController extends Controller
      * Display the specified resource.
      *
      * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $data = JobVacancyResponse::where('job_vacancy_id', $id)->with('user')
+            ->get();
+        return response()->json($data);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -78,7 +83,8 @@ class JobVacancyResponseController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -90,6 +96,7 @@ class JobVacancyResponseController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

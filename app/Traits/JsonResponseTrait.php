@@ -17,7 +17,7 @@ trait JsonResponseTrait
     /**
      * Send error exception with json response
      */
- 
+
     protected function sendJsonException($exception, $status = 420)
     {
         $error = [
@@ -26,21 +26,22 @@ trait JsonResponseTrait
         ];
         if ($exception instanceof ModelNotFoundException) {
             $error['message'] = $exception->getMessage();
-            $error['code']    = 404;
-            $status           = 404;
+            $error['code'] = 404;
+            $status = 404;
         }
         $response = ['success' => false];
         if ($exception instanceof ValidationException) {
             $response['message'] = $exception->getMessage();
-            $validator           = $exception->validator;
-            $error_keys          = $validator->errors()->keys();
-            $error['message']    = $validator->errors()->first($error_keys[0]);
-            $error['attribute']  = $error_keys[0];
-            $error['code']       = 600;
+            $validator = $exception->validator;
+            $error_keys = $validator->errors()->keys();
+            $error['message'] = $validator->errors()->first($error_keys[0]);
+            $error['attribute'] = $error_keys[0];
+            $error['code'] = 600;
         }
         $response['error'] = $error;
         return $this->sendJson($response, $status);
     }
+
     /**
      * Send json success response with data
      */
@@ -53,6 +54,7 @@ trait JsonResponseTrait
         ];
         return $this->sendJson($response);
     }
+
     /**
      * Send success message
      */
@@ -60,6 +62,7 @@ trait JsonResponseTrait
     {
         return $this->sendJsonSuccess($data, $message);
     }
+
     /**
      * Send json error response
      */
@@ -71,6 +74,7 @@ trait JsonResponseTrait
         ];
         return $this->sendJson($data, $status);
     }
+
     /**
      * Send json response
      */
@@ -78,6 +82,7 @@ trait JsonResponseTrait
     {
         return Response()->json($data, $status);
     }
+
     /**
      * Inline validation on request input
      */
@@ -89,13 +94,18 @@ trait JsonResponseTrait
         }
         return $validate;
     }
+
     /**
      * Abort unauthorised action.
      */
-    protected function abort_if($boolean, $code = 403, $message = 'This action is unauthorized.')
-    {
+    protected function abort_if(
+        $boolean,
+        $code = 403,
+        $message = 'This action is unauthorized.'
+    ) {
         abort_if($boolean, $code, $message);
     }
+
     /**
      * Call action of controller
      */
@@ -106,7 +116,6 @@ trait JsonResponseTrait
         } catch (\Exception $exception) {
             return $this->sendJsonException($exception);
         }
-
     }
 
 }

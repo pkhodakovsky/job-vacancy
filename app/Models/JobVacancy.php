@@ -13,7 +13,7 @@ class JobVacancy extends Model
 
     protected $table = "job_vacancies";
     protected $fillable = ["user_id", "title", "job_no", "body"];
-    protected $casts = ['created_at'=>'date:Y-m-d'];
+    protected $casts = ['created_at' => 'date:Y-m-d'];
 
 
     public function User()
@@ -23,13 +23,17 @@ class JobVacancy extends Model
 
     public function setJobNoAttribute(): void
     {
-
         $this->attributes['job_no'] = rand(111111111, 999999999);
     }
 
 
-    public function JobVacancyResponses(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function JobVacancyResponses(
+    ): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(JobVacancyResponse::class, 'job_vacancy_id', 'id');
+        return $this->hasMany(
+            JobVacancyResponse::class,
+            'job_vacancy_id',
+            'id'
+        );
     }
 }
