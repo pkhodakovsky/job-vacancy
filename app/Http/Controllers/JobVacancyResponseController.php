@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\Setting\SettingEnum;
-use App\Helpers\Setting\SettingHelper;
-use App\Http\Requests\JobVacancyRequest;
-use App\Http\Resources\JobVacancyResource;
+use App\Http\Requests\JobVacancyResponseRequest;
 use App\Models\JobVacancy;
+use App\Models\JobVacancyResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use Inertia\Inertia;
 
-class JobVacancyController extends Controller
+class JobVacancyResponseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,9 +17,7 @@ class JobVacancyController extends Controller
      */
     public function index()
     {
-        $jobs = JobVacancy::all();
 
-        return response()->json($jobs);
     }
 
     /**
@@ -32,31 +27,29 @@ class JobVacancyController extends Controller
      */
     public function create()
     {
-        $this->middleware(['auth', 'verified']);
-
-        return Inertia::render('NewJob');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
-    public function store(JobVacancyRequest $request)
+    public function store(JobVacancyResponseRequest $request)
     {
-        $this->middleware(['auth', 'verified']);
-        $jobVacancy = array_merge($request->validated(), ['job_no' => 0, 'user_id' => auth()->id()]);
         try {
-            JobVacancy::create($jobVacancy);
-
+            JobVacancyResponse::create([
+                'body' => $request->body,
+                'user_id' => auth()->id(),
+                'job_vacancy_id' => $request->job_vacancy_id,
+            ]);
             return response()->json(['message' => trans('Successfully done')]);
         } catch (ValidationException  $e) {
             return response()->json([
                 'message' => $e->getMessage(),
             ], 406);
         }
-
     }
 
     /**
@@ -67,8 +60,7 @@ class JobVacancyController extends Controller
      */
     public function show($id)
     {
-        return new JobVacancyResource(JobVacancy::with(['user'])->find($id));
-
+        //
     }
 
     /**
@@ -79,7 +71,7 @@ class JobVacancyController extends Controller
      */
     public function edit($id)
     {
-        $this->middleware(['auth', 'verified']);
+        //
     }
 
     /**
@@ -91,7 +83,7 @@ class JobVacancyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->middleware(['auth', 'verified']);
+        //
     }
 
     /**
@@ -102,6 +94,6 @@ class JobVacancyController extends Controller
      */
     public function destroy($id)
     {
-        $this->middleware(['auth', 'verified']);
+        //
     }
 }

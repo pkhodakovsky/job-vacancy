@@ -16,11 +16,10 @@ class JobVacancyResponseObserver
      * @param \App\Models\JobVacancyResponse $jobVacancyResponse
      * @return void
      */
-    public function creating(JobVacancy $jobVacancy)
+    public function creating(JobVacancyResponse $jobVacancyResponse)
     {
         $userCoin = auth()->user()->coin;
         $job_vacancy_response = SettingHelper::app()->get(SettingEnum::JOB_RESPONSE_COST);
-
         if ($userCoin->coin < $job_vacancy_response) {
             throw ValidationException::withMessages([
                 trans('Your Coin Balance is :balance , Response to a Job Vacancy Costs :cost',
@@ -28,6 +27,13 @@ class JobVacancyResponseObserver
                         'balance' => $userCoin->coin,
                         'cost' => $job_vacancy_response,
                     ]),
+            ]);
+        }
+        $jobVacancyResponsesCount=JobVacancyResponse::where('user_id',auth()->id())->
+        where('job_vacancy_id',$jobVacancyResponse->job_vacancy_id)->get()->count();
+        if($jobVacancyResponsesCount>=1){
+            throw ValidationException::withMessages([
+                trans('Users cannot send two or more responses to the same job vacancy'),
             ]);
         }
         auth()->user()->coin()->update(['coin' => $userCoin->coin - $job_vacancy_response]);

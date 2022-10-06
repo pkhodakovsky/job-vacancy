@@ -5,8 +5,6 @@ const props = defineProps({
     classes: {
         default: '',
     },
-
-
 });
 
 

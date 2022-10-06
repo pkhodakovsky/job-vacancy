@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\JobVacancyController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\JobVacancyResponseController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,16 +22,25 @@ Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+
     ]);
 });
-Route::middleware(['auth', 'verified'])->group(function(){
+Route::get('/vacancy/{id}', function ($id) {
+
+    return Inertia::render('JobVacancyPage', [
+        'canLogin' => Route::has('login'),
+        'id' => $id,
+        'canRegister' => Route::has('register'),
+    ]);
+});
+Route::resource('jobresponse', JobVacancyResponseController::class);
+Route::resource('jobs', JobVacancyController::class);
+Route::middleware(['auth', 'verified'])->group(function () {
 //    Route::get('/dashboard', function () {
 //        return Inertia::render('Dashboard');
 //    });
-    Route::resource('/dashboard',DashboardController::class);
-    Route::resource('jobs',JobVacancyController::class);
+    Route::resource('/dashboard', DashboardController::class);
+
 });
 
 
