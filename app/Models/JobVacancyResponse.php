@@ -15,13 +15,13 @@ class JobVacancyResponse extends Model
     protected $fillable = ["user_id", "job_vacancy_id", "body"];
 
 
-    public function User(): HasOne
+    public function User(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->hasOne(User::class, 'id', 'user_id');
+        return $this->belongsTo(User::class, 'id', 'user_id');
     }
 
-    public function JobVacancy(): HasOne
+    public function JobVacancy(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->hasOne(JobVacancy::class, 'id', 'job_vacancy_id');
+        return $this->belongsTo(JobVacancy::class, 'id', 'job_vacancy_id');
     }
 }

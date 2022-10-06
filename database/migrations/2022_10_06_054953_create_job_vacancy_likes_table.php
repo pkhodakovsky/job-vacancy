@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -12,14 +13,10 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('job_vacancies', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->unsignedInteger('job_no')->index();
+        Schema::create('job_vacancy_likes', function (Blueprint $table) {
             $table->foreignUuid('user_id')->index()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('title');
-            $table->text('body');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->foreignUuid('job_vacancy_id')->index()->constrained('job_vacancies')->onUpdate('cascade')->onDelete('cascade');
+
         });
     }
 
@@ -30,6 +27,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('job_vacancies');
+        Schema::dropIfExists('job_vacancy_likes');
     }
 };

@@ -12,14 +12,12 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('job_vacancies', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->unsignedInteger('job_no')->index();
+        Schema::create('user_likes', function (Blueprint $table) {
             $table->foreignUuid('user_id')->index()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('title');
-            $table->text('body');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->foreignUuid('user_who_liked')->index()->comment('who liked the user')->
+            constrained('users')->
+            onUpdate('cascade')->onDelete('cascade');
+
         });
     }
 
@@ -30,6 +28,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('job_vacancies');
+        Schema::dropIfExists('user_likes');
     }
 };

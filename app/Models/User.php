@@ -13,7 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable implements MustVerifyEmail
 
 {
-    use HasApiTokens, Uuids, Notifiable,SoftDeletes;
+    use HasApiTokens, Uuids, Notifiable, SoftDeletes;
 
     public $incrementing = false;
     public $keyType = 'string';
@@ -26,8 +26,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'like',
-        'coin',
     ];
 
     /**
@@ -48,4 +46,14 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function Coin(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(UserCoin::class, 'user_id', 'id');
+    }
+
+    public function Likes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(UserLike::class, 'user_id', 'id');
+    }
 }

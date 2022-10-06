@@ -13,11 +13,11 @@ return new class extends Migration {
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedTinyInteger('coin')->
-            default(config('job.'.\App\Enums\Setting\SettingEnum::NEW_USER_COIN))->
-            after('email');
-            $table->unsignedInteger('like')->default(0)->
-            after('email');
+//            $table->unsignedTinyInteger('coin')->
+//            default(config('job.'.\App\Enums\Setting\SettingEnum::NEW_USER_COIN))->
+//            after('email');
+//            $table->unsignedInteger('like')->default(0)->
+//            after('email');
         });
     }
 
@@ -29,7 +29,7 @@ return new class extends Migration {
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropColumn('coin');
         });
     }
 };

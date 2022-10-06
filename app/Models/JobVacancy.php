@@ -11,16 +11,21 @@ class JobVacancy extends Model
     use SoftDeletes, Uuids;
 
     protected $table = "job_vacancies";
-    protected $fillable = ["user_id", "like", "title","job_id","body"];
+    protected $fillable = ["user_id", "title", "job_no", "body"];
 
     public function User(): HasOne
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
-    public function setJobIdAttribute(): void
+    public function setJobNoAttribute(): void
     {
 
-        $this->attributes['job_id'] = rand(111111111, 999999999);
+        $this->attributes['job_no'] = rand(111111111, 999999999);
+    }
+
+    public function JobVacancyResponses(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(JobVacancyResponse::class, 'job_vacancy_id', 'id');
     }
 }
