@@ -3,6 +3,7 @@
 A simple job board where users can post their jobs and send a response to other jobs.
 
 -   move .env.example to .env
+-   replace aws api key and api secret
 -   run `php artisan key:generate`
 -   run `php artisan migrate --seed`
 
