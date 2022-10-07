@@ -31,7 +31,7 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('jobs.create')" :active="route().current('jobs.create')">
                                     New Job
                                 </NavLink>
-                                <NavLink :href="route('dashboard.index')" :active="route().current('dashboard.index')">
+                                <NavLink :href="route('setting.index')" :active="route().current('setting.index')">
                                     Setting
                                 </NavLink>
                             </div>

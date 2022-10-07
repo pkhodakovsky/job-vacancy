@@ -51,15 +51,15 @@ class SettingHelper
     public function set()
     {
         config([
-            'app.name'                                       => $this->get(
-                SettingKeysEnum::APP_NAME
-            ),
-            'app.debug'                                      => $this->get(
-                SettingKeysEnum::APP_DEBUG
-            ),
-            'app.url'                                        => $this->get(
-                SettingKeysEnum::APP_URL
-            ),
+//            'app.name'                                       => $this->get(
+//                SettingKeysEnum::APP_NAME
+//            ),
+//            'app.debug'                                      => $this->get(
+//                SettingKeysEnum::APP_DEBUG
+//            ),
+//            'app.url'                                        => $this->get(
+//                SettingKeysEnum::APP_URL
+//            ),
             'job.' . SettingKeysEnum::NEW_USER_COIN          => $this->get(
                 SettingKeysEnum::NEW_USER_COIN
             ),

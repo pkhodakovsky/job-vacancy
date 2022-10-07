@@ -17,18 +17,18 @@ class settingSeeder extends Seeder
     public function run()
     {
         Setting::insert([
-            [
-                Setting::KEY => SettingEnum::APP_URL,
-                Setting::VALUE => config('app.'.SettingEnum::APP_URL),
-            ],
-            [
-                Setting::KEY => SettingEnum::APP_NAME,
-                Setting::VALUE => config('app.'.SettingEnum::APP_NAME),
-            ],
-            [
-                Setting::KEY => SettingEnum::APP_DEBUG,
-                Setting::VALUE => config('app.'.SettingEnum::APP_DEBUG),
-            ],
+//            [
+//                Setting::KEY => SettingEnum::APP_URL,
+//                Setting::VALUE => config('app.'.SettingEnum::APP_URL),
+//            ],
+//            [
+//                Setting::KEY => SettingEnum::APP_NAME,
+//                Setting::VALUE => config('app.'.SettingEnum::APP_NAME),
+//            ],
+//            [
+//                Setting::KEY => SettingEnum::APP_DEBUG,
+//                Setting::VALUE => config('app.'.SettingEnum::APP_DEBUG),
+//            ],
             [
                 Setting::KEY => SettingEnum::COIN_LIMIT,
                 Setting::VALUE => config('job.'.SettingEnum::COIN_LIMIT),

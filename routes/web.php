@@ -7,7 +7,7 @@ use App\Http\Controllers\JobVacancyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JobVacancyResponseController;
 use App\Http\Controllers\LikeController;
-
+use App\Http\Controllers\SettingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +37,7 @@ Route::resource('jobresponse', JobVacancyResponseController::class);
 Route::resource('jobs', JobVacancyController::class);
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('like', LikeController::class);
+    Route::resource('setting', SettingController::class);
     Route::resource('/dashboard', DashboardController::class);
 });
 
