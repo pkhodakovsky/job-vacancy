@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\NewResponseEvent;
 use App\Listeners\CreateUserCoinListener;
+use App\Listeners\SendResponseListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,7 +20,10 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
-            CreateUserCoinListener::class
+            CreateUserCoinListener::class,
+        ],
+        NewResponseEvent::class => [
+            SendResponseListener::class,
         ],
     ];
 

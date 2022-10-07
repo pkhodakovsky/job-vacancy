@@ -39,6 +39,7 @@ class JobVacancyResponseController extends Controller
      */
     public function store(JobVacancyResponseRequest $request)
     {
+
         try {
             JobVacancyResponse::create([
                 'body'           => $request->body,

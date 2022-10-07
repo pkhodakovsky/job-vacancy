@@ -85,7 +85,7 @@ defineProps({
                         <Alert v-if="success" :classes="'bg-green-100'">
                             Successfully Done
                         </Alert>
-                        <PrimaryButton type="submit">Send Job</PrimaryButton>
+                        <PrimaryButton type="submit">Send Response</PrimaryButton>
                     </div>
                 </form>
                 <div class="flex justify-center" v-for="jobResponse in jobResponses">

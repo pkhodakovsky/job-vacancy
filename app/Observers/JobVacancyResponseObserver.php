@@ -3,9 +3,11 @@
 namespace App\Observers;
 
 use App\Enums\Setting\SettingEnum;
+use App\Events\NewResponseEvent;
 use App\Helpers\Setting\SettingHelper;
 use App\Models\JobVacancy;
 use App\Models\JobVacancyResponse;
+use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 
 class JobVacancyResponseObserver
@@ -19,7 +21,15 @@ class JobVacancyResponseObserver
      */
     public function creating(JobVacancyResponse $jobVacancyResponse)
     {
+        if (!auth()->check()) {
+            throw ValidationException::withMessages([
+                trans(
+                    'Login before sending response'
+                ),
+            ]);
+        }
         $userCoin = auth()->user()->coin;
+
         $job_vacancy_response = SettingHelper::app()->get(
             SettingEnum::JOB_RESPONSE_COST
         );
@@ -29,7 +39,7 @@ class JobVacancyResponseObserver
                     'Your Coin Balance is :balance , Response to a Job Vacancy Costs :cost',
                     [
                         'balance' => $userCoin->coin,
-                        'cost'    => $job_vacancy_response,
+                        'cost' => $job_vacancy_response,
                     ]
                 ),
             ]);
@@ -49,11 +59,18 @@ class JobVacancyResponseObserver
         auth()->user()->coin()->update(
             ['coin' => $userCoin->coin - $job_vacancy_response]
         );
+
+
     }
 
     public function created(JobVacancyResponse $jobVacancyResponse)
     {
-        //
+
+        $response_counter = JobVacancyResponse::where('id', $jobVacancyResponse->id)->
+        where('created_at', '>=', Carbon::now()->addHours(-1))->count();
+        if ($response_counter === 1) {
+            NewResponseEvent::dispatch($jobVacancyResponse);
+        }
     }
 
     /**

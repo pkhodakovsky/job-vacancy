@@ -20,9 +20,9 @@ class JobVacancyResponse extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function JobVacancy(
+    public function Job(
     ): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(JobVacancy::class, 'id', 'job_vacancy_id');
+        return $this->belongsTo(JobVacancy::class, 'job_vacancy_id', 'id');
     }
 }
