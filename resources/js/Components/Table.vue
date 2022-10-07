@@ -1,7 +1,5 @@
-
-
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import {computed, onMounted, onUnmounted, ref} from 'vue';
 
 const props = defineProps({
     rows: {
@@ -45,22 +43,22 @@ const props = defineProps({
 
             <tr class="bg-white dark:bg-gray-800" v-for="row in rows">
                 <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {row.job_id}
+                    #{{ row.job_no }}
                 </th>
                 <td class="py-4 px-6">
-                    {row.title}
+                    {{ row.title }}
                 </td>
                 <td class="py-4 px-6">
-                 {row.like}
+                    {{row.like_count}}
                 </td>
                 <td class="py-4 px-6">
-                   response
+                    {{ row.response_count }}
                 </td>
                 <td class="py-4 px-6">
-                    {row.created_at}
-                 </td>
+                    {{ row.created_at }}
+                </td>
                 <td class="py-4 px-6">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+<!--                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>-->
                 </td>
             </tr>
             </tbody>

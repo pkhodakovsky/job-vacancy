@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\JobVacancyResource;
 use App\Models\JobVacancy;
+use App\Services\Models\JobVacancyService;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 
-class DashboardController extends Controller
+class ApiJobController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,30 +16,17 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $jobVacancies = JobVacancy::where('user_id', auth()->id())->withCount(['like','response'])->get()->all();
-
-        return Inertia::render('Dashboard', [
-            'jobVacancies' => $jobVacancies,
-        ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return JobVacancy::filter()->get();
+        return response()->json(JobVacancyService::getAll());
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     *
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         //
@@ -48,24 +36,11 @@ class DashboardController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return JobVacancyService::show($id);
     }
 
     /**
@@ -73,7 +48,6 @@ class DashboardController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -85,7 +59,6 @@ class DashboardController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

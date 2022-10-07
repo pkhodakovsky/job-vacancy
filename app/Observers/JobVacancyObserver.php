@@ -40,7 +40,7 @@ class JobVacancyObserver
             ">",
             Carbon::now()->subDay()
         )->get()->count();
-        if ($jobCountLast24 > 2) {
+        if ($jobCountLast24 === 2) {
             throw ValidationException::withMessages([
                 trans('Cannot post more than two job vacancies per 24 hours'),
             ]);

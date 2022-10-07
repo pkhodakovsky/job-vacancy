@@ -7,6 +7,7 @@ use App\Helpers\Setting\SettingHelper;
 use App\Http\Requests\JobVacancyRequest;
 use App\Http\Resources\JobVacancyResource;
 use App\Models\JobVacancy;
+use App\Services\Models\JobVacancyService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
@@ -20,9 +21,7 @@ class JobVacancyController extends Controller
      */
     public function index()
     {
-        $jobs = JobVacancy::all();
-
-        return response()->json($jobs);
+        return response()->json(JobVacancyService::getAll());
     }
 
     /**
@@ -71,7 +70,7 @@ class JobVacancyController extends Controller
      */
     public function show($id)
     {
-        return new JobVacancyResource(JobVacancy::with(['user'])->find($id));
+        return JobVacancyService::show($id);
     }
 
     /**
@@ -90,7 +89,7 @@ class JobVacancyController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
