@@ -38,6 +38,7 @@ class JobVacancySeeder extends Seeder
                 "user_id" => 'this-is-admin-user',
                 "title"   => "Intermediate Remote Yii/Laravel Developer PHP - job post",
                 "job_no"  => 1075445,
+                'created_at' => now(),
                 "body"    => "Mindfield Consulting Corporation (MCC) creates mission-critical technologies for our client’s strategic teams. Expect a fair and equitable environment to help meet your flexible work-life requirements. Our team is growing and seeking seeking a number of enthusiastic programmers with strong MVC, PHP, and MS/My SQL skills to support key client projects that will make a difference in their day-to-day operations and strategic initiatives. Clients trust Mindfield with their most critical systems and digital transformations so that they can lead their industries with technology. The successful candidate will work remotely as part of a nimble team to deliver key features. As our team continues to grow there will be options for work from home and part-time/full-time roles available."
             ],
             [

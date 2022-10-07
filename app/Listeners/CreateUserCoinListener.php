@@ -23,6 +23,6 @@ class CreateUserCoinListener
 
     public function handle($event)
     {
-        return UserCoin::create(["user_id" => $event->user->id]);
+        return UserCoin::firstOrCreate(["user_id" => $event->user->id]);
     }
 }

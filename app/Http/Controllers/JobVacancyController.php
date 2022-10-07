@@ -19,6 +19,11 @@ class JobVacancyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified'])->only('edit','create','destroy','store','update');
+    }
+
     public function index()
     {
         return response()->json(JobVacancyService::getAll());
@@ -31,7 +36,7 @@ class JobVacancyController extends Controller
      */
     public function create()
     {
-        $this->middleware(['auth', 'verified']);
+
 
         return Inertia::render('NewJob');
     }
@@ -45,20 +50,12 @@ class JobVacancyController extends Controller
      */
     public function store(JobVacancyRequest $request)
     {
-        $this->middleware(['auth', 'verified']);
+
         $jobVacancy = array_merge(
             $request->validated(),
             ['job_no' => 0, 'user_id' => auth()->id()]
         );
-        try {
-            JobVacancy::create($jobVacancy);
-
-            return response()->json(['message' => trans('Successfully done')]);
-        } catch (ValidationException  $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], 406);
-        }
+        return JobVacancyService::create($jobVacancy);
     }
 
     /**
@@ -82,14 +79,14 @@ class JobVacancyController extends Controller
      */
     public function edit($id)
     {
-        $this->middleware(['auth', 'verified']);
+
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param int                      $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -107,6 +104,6 @@ class JobVacancyController extends Controller
      */
     public function destroy($id)
     {
-        $this->middleware(['auth', 'verified']);
+
     }
 }

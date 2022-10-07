@@ -16,8 +16,15 @@ class SettingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+    }
+
     public function index()
     {
+        if (auth()->id() !== 'this-is-admin-user') {
+            return "only admin user can access setting";
+        }
         $settings = Setting::query()->get()->pluck('value', '_key');
 
         return Inertia::render('Setting', [
@@ -39,17 +46,18 @@ class SettingController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-
     }
 
     /**
      * Display the specified resource.
      *
      * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -61,6 +69,7 @@ class SettingController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -72,23 +81,27 @@ class SettingController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(SettingRequest $request, $id)
     {
+        if (auth()->id() !== 'this-is-admin-user') {
+            return "only admin user can access setting";
+        }
         foreach ($request->validated() as $key => $value) {
             Setting::where('_key', $key)->update(['value' => $value]);
         }
         Cache::clear(SettingsCacheEnum::KEY);
         return response()->json(["message", trans("Successfully done")]);
-
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

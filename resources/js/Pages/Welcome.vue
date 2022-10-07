@@ -29,7 +29,7 @@ defineProps({
 
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-                 <img width="200" src="https://www.kindpng.com/picc/m/133-1337806_job-vector-seeker-job-logo-magnifying-glass-png.png"
+                 <img width="200" class="mt-3" src="https://www.avondhublackwater.com/wpress/wp-content/uploads/2015/04/job-vacancy-logo-107.png"
 />            </div>
 
             <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
