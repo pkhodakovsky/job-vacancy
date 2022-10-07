@@ -39,7 +39,7 @@ class JobVacancyResponseObserver
                     'Your Coin Balance is :balance , Response to a Job Vacancy Costs :cost',
                     [
                         'balance' => $userCoin->coin,
-                        'cost' => $job_vacancy_response,
+                        'cost'    => $job_vacancy_response,
                     ]
                 ),
             ]);
@@ -49,25 +49,24 @@ class JobVacancyResponseObserver
             auth()->id()
         )->where('job_vacancy_id', $jobVacancyResponse->job_vacancy_id)->get()
             ->count();
-        if ($jobVacancyResponsesCount >= 1) {
+        if ($jobVacancyResponsesCount > 0) {
             throw ValidationException::withMessages([
                 trans(
-                    'Users cannot send two or more responses to the same job vacancy'
+                    'Users cannot send more than one responses to the same job vacancy'
                 ),
             ]);
         }
         auth()->user()->coin()->update(
             ['coin' => $userCoin->coin - $job_vacancy_response]
         );
-
-
     }
 
     public function created(JobVacancyResponse $jobVacancyResponse)
     {
-
-        $response_counter = JobVacancyResponse::where('id', $jobVacancyResponse->id)->
-        where('created_at', '>=', Carbon::now()->addHours(-1))->count();
+        $response_counter = JobVacancyResponse::where(
+            'id',
+            $jobVacancyResponse->id
+        )->where('created_at', '>=', Carbon::now()->addHours(-1))->count();
         if ($response_counter === 1) {
             NewResponseEvent::dispatch($jobVacancyResponse);
         }

@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class JobVacancyTag extends Model
 {
-    use HasFactory;
+     protected $table="job_vacancy_tags";
 }

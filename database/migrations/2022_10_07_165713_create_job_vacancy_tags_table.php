@@ -14,8 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('job_vacancy_tags', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->foreignUuid('job_vacancy_id')->index()->constrained('job_vacancies')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('tag_id')->unsigned()->nullable();
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+
         });
     }
 

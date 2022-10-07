@@ -55,6 +55,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(UserCoin::class, 'user_id', 'id');
     }
 
+    public function Job(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(JobVacancy::class, 'user_id', 'id');
+    }
+
     public function Likes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(UserLike::class, 'user_id', 'id');

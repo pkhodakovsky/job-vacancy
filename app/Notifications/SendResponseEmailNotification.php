@@ -27,6 +27,7 @@ class SendResponseEmailNotification extends Notification
      * Get the notification's delivery channels.
      *
      * @param mixed $notifiable
+     *
      * @return array
      */
     public function via($notifiable)
@@ -38,16 +39,25 @@ class SendResponseEmailNotification extends Notification
      * Get the mail representation of the notification.
      *
      * @param mixed $notifiable
+     *
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        return (new MailMessage)->subject(
+            "No #".$this->email_data['job_vacancy']['job_no']
+            . " Job Vacancy got a response"
+        )
             ->line('Your Job Vacancy receive a new response')
-            ->line("Job vacancy : ".$this->email_data['job_vacancy']['title'])
-            ->line("Who sent : ".$this->email_data['who_sent']['name'])
-            ->line("Total number of responses : ".$this->email_data['job_response_count'])
-            ->line("Date when the answer was sent : ".$this->email_data['date'])
+            ->line("Job vacancy : " . $this->email_data['job_vacancy']['title'])
+            ->line("Who sent : " . $this->email_data['who_sent']['name'])
+            ->line(
+                "Total number of responses : "
+                . $this->email_data['job_response_count']
+            )
+            ->line(
+                "Date when the answer was sent : " . $this->email_data['date']
+            )
             ->action('Notification Action', url('/'))
             ->line('Thank you for using our application!');
     }
@@ -56,6 +66,7 @@ class SendResponseEmailNotification extends Notification
      * Get the array representation of the notification.
      *
      * @param mixed $notifiable
+     *
      * @return array
      */
     public function toArray($notifiable)

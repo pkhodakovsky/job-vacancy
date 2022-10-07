@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 
 class JobVacancy extends Model
 {
-    use SoftDeletes, Uuids, Filterable,JobVacancyFilter;
+    use SoftDeletes, Uuids, Filterable, JobVacancyFilter;
 
 
     protected $table = "job_vacancies";
@@ -20,7 +20,10 @@ class JobVacancy extends Model
     protected $casts = ['created_at' => 'date:Y-m-d'];
 
 
-
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'job_vacancy_tags');
+    }
 
     public function User()
     {
